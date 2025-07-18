@@ -21,20 +21,21 @@ function getDay(date: string) {
 }
 
 const weatherImages = new Map<string, ImageSourcePropType>([
-  ['Partly cloudy', require('../assets/images/partlycloudy.png')],
-  ['Moderate rain', require('../assets/images/moderaterain.png')],
-  ['Patchy rain possible', require('../assets/images/moderaterain.png')],
-  ['Sunny', require('../assets/images/sun.png')],
-  ['Clear', require('../assets/images/sun.png')],
-  ['Overcast', require('../assets/images/cloud.png')],
-  ['Cloudy', require('../assets/images/cloud.png')],
-  ['Light rain', require('../assets/images/moderaterain.png')],
-  ['Moderate rain at times', require('../assets/images/moderaterain.png')],
-  ['Heavy rain', require('../assets/images/heavyrain.png')],
-  ['Heavy rain at times', require('../assets/images/heavyrain.png')],
-  ['Moderate or heavy freezing rain', require('../assets/images/heavyrain.png')],
-  ['Moderate or heavy rain shower', require('../assets/images/heavyrain.png')],
-  ['Moderate or heavy rain with thunder', require('../assets/images/heavyrain.png')],
+  ['partly cloudy', require('../assets/images/partlycloudy.png')],
+  ['moderate rain', require('../assets/images/moderaterain.png')],
+  ['patchy rain possible', require('../assets/images/moderaterain.png')],
+  ['patchy rain nearby', require('../assets/images/moderaterain.png')],
+  ['sunny', require('../assets/images/sun.png')],
+  ['clear', require('../assets/images/sun.png')],
+  ['overcast', require('../assets/images/cloud.png')],
+  ['cloudy', require('../assets/images/cloud.png')],
+  ['light rain', require('../assets/images/moderaterain.png')],
+  ['moderate rain at times', require('../assets/images/moderaterain.png')],
+  ['heavy rain', require('../assets/images/heavyrain.png')],
+  ['heavy rain at times', require('../assets/images/heavyrain.png')],
+  ['moderate or heavy freezing rain', require('../assets/images/heavyrain.png')],
+  ['moderate or heavy rain shower', require('../assets/images/heavyrain.png')],
+  ['moderate or heavy rain with thunder', require('../assets/images/heavyrain.png')],
   ['other', require('../assets/images/moderaterain.png')],
 ]);
 
@@ -98,7 +99,6 @@ export default function Home() {
   const handleLocationClick = async (location: Location) => {
     const forecast = await getForecastData(`${location.name}, ${location.country}`);
     setCurrentLocationForecast(forecast);
-    console.log(forecast.forecast.forecastday);
     setShowSearch(false);
     setQuery('');
     setLocations([]);
@@ -182,7 +182,9 @@ export default function Home() {
             {/* Weather Image */}
             <View className="flex-row justify-center">
               <Image
-                source={weatherImages.get(currentLocationForecast.current.condition.text)}
+                source={weatherImages.get(
+                  currentLocationForecast.current.condition.text.toLowerCase()
+                )}
                 className="h-72 w-72"
               />
             </View>
@@ -243,7 +245,7 @@ export default function Home() {
                 style={{ backgroundColor: 'rgba(255, 255, 255, .15)' }}
                 className="mr-4 flex w-32 items-center justify-center overflow-hidden rounded-md py-3">
                 <Image
-                  source={weatherImages.get(day.day.condition.text)}
+                  source={weatherImages.get(day.day.condition.text.toLowerCase())}
                   className="mb-4 h-11 w-11"
                 />
                 <Text className="mb-2 text-white">{getDay(day.date)}</Text>
