@@ -1,10 +1,16 @@
-import { View, Text } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { View, Text, Image } from "react-native";
+import Screen from "./lib/Screen";
 
 export default function Home() {
   return (
-    <View className="flex-1 items-center justify-center">
-      <Text>Welcome to the Home Page!</Text>
-      <Text>This is a simple React Native component.</Text>
-    </View>
+    <Screen>
+
+      <View className="flex-1 pt-12 px-2">
+        <Text>Hello, World!</Text>
+      </View>
+
+    </Screen>
   )
 }
+
